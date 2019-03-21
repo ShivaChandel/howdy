@@ -1,10 +1,26 @@
 const express = require('express');
 const router = express.Router();
+const User = require('../models/User');
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
 
 //Register
 
-router.get('/register', (req, res) => {
-    res.send("Register");
+router.post('/register', (req, res) => {
+    let newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+        username: req.body.username,
+        password: req.body.password
+    });
+
+    User.addUser(newUser, (err, user) => {
+        if (err) {
+            res.json({ success: false, msg: 'Failed to register User' })
+        } else {
+            res.json({ success: true, msg: "User Added" })
+        }
+    })
 });
 
 
@@ -19,9 +35,6 @@ router.get('/profile', (req, res) => {
     res.send("Profile");
 });
 
-//validate
-router.get('/validate', (req, res) => {
-    res.send("Validate");
-});
+
 
 module.exports = router;
