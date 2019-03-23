@@ -1,3 +1,51 @@
-<p>
-  register works!
-</p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-7">
+
+            <div class="card border-primary mb-3" style="max-width: 40rem;">
+                <div class="card-body">
+                    <form (submit)="onRegisterSubmit()">
+                        <fieldset>
+                            <legend>Register Here!</legend>
+                            <flash-messages></flash-messages>
+                            <hr class="my-4">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" [(ngModel)]="name" name="name" class="form-control" id="name" placeholder="Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" [(ngModel)]="username" name="username" class="form-control" id="username" placeholder="Username">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input type="email" class="form-control" [(ngModel)]="email" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Password">Password</label>
+                                <input type="password" [(ngModel)]="password" name="password" class="form-control" id="Password" placeholder="Password">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card mb-3">
+                <h3 class="card-header">Today's Quote!</h3>
+                <div class="card-body">
+                    <h5 class="card-title">Carl Segan</h5>
+                    <h6 class="card-subtitle text-muted">Famous Physist</h6>
+                </div>
+                <img style="height: 200px; width: 100%; display: block;" [src]="imageURL" alt="Card image">
+                <div class="card-body">
+                    <p class="card-text"><i>"For small creatures such as we the vastness is bearable only through love."</i></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
