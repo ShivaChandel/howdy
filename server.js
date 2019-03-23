@@ -23,6 +23,13 @@ mongoose.connect(db, { useNewUrlParser: true })
     })
     .catch(err => console.log(err));
 
+
+//passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport')(passport);
+
+
 //use static folder
 app.use(express.static(path.join(__dirname, 'public')));
 
