@@ -16,9 +16,9 @@ router.post('/register', (req, res) => {
 
     User.addUser(newUser, (err, user) => {
         if (err) {
-            res.json({ success: false, msg: 'Failed to register User' })
+            res.json({ "success": false, msg: 'Failed to register User' })
         } else {
-            res.json({ success: true, msg: "User Added" })
+            res.json({ "success": true, msg: "User Added" })
         }
     })
 });
@@ -33,7 +33,7 @@ router.post('/authenticate', (req, res) => {
         if (err) throw err;
         if (!user) {
             return res.json({
-                success: false,
+                "success": false,
                 msg: "User Not Found"
             })
         } else {
@@ -47,7 +47,7 @@ router.post('/authenticate', (req, res) => {
                     }
                     const token = jwt.sign(payload, config.secret, { expiresIn: 36000 });
                     return res.json({
-                        success: true,
+                        "success": true,
                         token: 'bearer ' + token,
                         user: {
                             id: user.id,
@@ -57,8 +57,8 @@ router.post('/authenticate', (req, res) => {
                     })
                 } else {
                     return res.json({
-                        success: false,
-                        msg: "Wrong Password"
+                        "success": false,
+                        "msg": "Wrong Password"
                     })
                 }
             })

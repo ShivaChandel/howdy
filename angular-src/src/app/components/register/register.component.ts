@@ -1,7 +1,8 @@
 import { ValidateService } from './../../services/validate.service';
 import { Component, OnInit } from '@angular/core';
 import { FlashMessagesService } from 'angular2-flash-messages';
-
+import {AuthService} from '../../services/auth/auth.service';
+import {Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -13,7 +14,10 @@ export class RegisterComponent implements OnInit {
   email:String;
   password:String;
   imageURL:String='https://www.bbvaopenmind.com/wp-content/uploads/2018/02/Sagan-1.jpg';
-  constructor(private _validate:ValidateService,private _flashMessagesService: FlashMessagesService) { }
+  constructor(private _validate:ValidateService,
+    private _flashMessagesService: FlashMessagesService,
+    private _authservice:AuthService,
+    private _router:Router) { }
 
   ngOnInit() {
   }
@@ -37,5 +41,21 @@ export class RegisterComponent implements OnInit {
       this._flashMessagesService.show('Please use a valid email!',{cssClass:'alert-danger',timeout:1000})
       return false;
     }
+
+     //register User
+    this._authservice.registerUser(user)
+      .subscribe(data =>{
+        console.log(data);
+        if(data){
+          this._flashMessagesService.show('Registration Succesfull ! ',{cssClass:'alert-success',timeout:3000})
+          this._router.navigate(['/login']);
+        }else{
+          this._flashMessagesService.show('Oops Something went wrong! ',{cssClass:'alert-danger',timeout:3000})
+          this._router.navigate(['/register'])
+        }
+      })
   }
+
+  //register User
+  
 }
