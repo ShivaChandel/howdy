@@ -25,6 +25,7 @@ const appRoutes:Routes=[
   {path:'login',component:LoginComponent},
   {path:'dashboard',component:DashboardComponent},
   {path:'register',component:RegisterComponent},
+  {path:'profile',component:ProfileComponent},
   
 ]
 

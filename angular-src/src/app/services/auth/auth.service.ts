@@ -19,10 +19,51 @@ export class AuthService {
     headers.append('content-type','application/json');
 
     return this.http.post('http://localhost:8080/users/register',user,{headers:headers})
-              
-            
+            .pipe(catchError(this.errorHandler))          
   }
+
   errorHandler(error:HttpErrorResponse){
       return throwError(error.message||"Server not responding");
+  }
+
+  authenticateUser(user){
+    let headers = new HttpHeaders();
+    headers.append('content-type','application/json');
+
+    return this.http.post('http://localhost:8080/users/authenticate',user,{headers:headers})
+            .pipe(catchError(this.errorHandler))
+  }
+
+  getProfile(){
+    let headers = new HttpHeaders();
+    this.loadToken();
+    headers.append('Authorization',this.token);
+    headers.append('content-type','application/json');
+
+    return this.http.get('http://localhost:8080/users/profile',{headers:headers})
+            .pipe(catchError(this.errorHandler))
+  }
+
+  loadToken(){
+    const token = localStorage.getItem('id_token');
+    this.token=token;
+  }
+
+  
+  storeUserData(token,user){
+    localStorage.setItem('id_token',token);
+    localStorage.setItem('user',JSON.stringify(user));
+
+    this.token = token;
+    this.user=user;
+
+    console.log(token);
+
+  }
+
+  logOut(){
+    this.token=null;
+    this.user=null;
+    localStorage.clear();
   }
 }

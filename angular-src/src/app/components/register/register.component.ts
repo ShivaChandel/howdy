@@ -13,7 +13,9 @@ export class RegisterComponent implements OnInit {
   username:String;
   email:String;
   password:String;
-  imageURL:String='https://www.bbvaopenmind.com/wp-content/uploads/2018/02/Sagan-1.jpg';
+  
+  private _dataServiceData :any={};
+
   constructor(private _validate:ValidateService,
     private _flashMessagesService: FlashMessagesService,
     private _authservice:AuthService,
@@ -45,8 +47,9 @@ export class RegisterComponent implements OnInit {
      //register User
     this._authservice.registerUser(user)
       .subscribe(data =>{
-        console.log(data);
-        if(data){
+        this._dataServiceData=data;
+
+        if(this._dataServiceData.success){
           this._flashMessagesService.show('Registration Succesfull ! ',{cssClass:'alert-success',timeout:3000})
           this._router.navigate(['/login']);
         }else{
