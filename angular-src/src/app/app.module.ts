@@ -12,12 +12,12 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 
 import {ValidateService} from './services/validate.service';
+import { ProfileComponent } from './components/dashboard/profile/profile.component';
 
 const appRoutes:Routes=[
   {path:'',component:HomeComponent},
@@ -25,7 +25,7 @@ const appRoutes:Routes=[
   {path:'login',component:LoginComponent},
   {path:'dashboard',component:DashboardComponent},
   {path:'register',component:RegisterComponent},
-  {path:'profile',component:ProfileComponent},
+
   
 ]
 
@@ -35,9 +35,9 @@ const appRoutes:Routes=[
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent,
     HomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -37,8 +37,7 @@ export class AuthService {
   getProfile(){
     let headers = new HttpHeaders();
     this.loadToken();
-    headers.append('Authorization',this.token);
-    headers.append('content-type','application/json');
+    headers=headers.append('Authorization',this.token).append('content-type','application/json');
 
     return this.http.get('http://localhost:8080/users/profile',{headers:headers})
             .pipe(catchError(this.errorHandler))
@@ -65,5 +64,15 @@ export class AuthService {
     this.token=null;
     this.user=null;
     localStorage.clear();
+  }
+
+  makeInitialProfile(user){
+    let headers = new HttpHeaders();
+    
+    headers=headers.append('content-type','application/json');
+    console.log("Make initial Profile");
+    console.log(user);
+    return this.http.post('http://localhost:8080/users/makeProfile',user,{headers:headers})
+            .pipe(catchError(this.errorHandler)) 
   }
 }

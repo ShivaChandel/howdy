@@ -4,6 +4,8 @@ const User = require('../models/User');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/keys.js');
+
+const profile = require('../models/Profile');
 //Register
 
 router.post('/register', (req, res) => {
@@ -72,6 +74,46 @@ router.post('/authenticate', (req, res) => {
 router.get('/profile', passport.authenticate('jwt', { session: false }), (req, res) => {
     res.json({
         user: req.user,
+    })
+});
+
+router.post('/makeProfile', (req, res) => {
+    let newProfile = new profile({
+        username: req.body.username,
+        name: req.body.name,
+        email: req.body.email,
+        user_id: req.body._id,
+    })
+
+    console.log("User");
+    console.log(newProfile);
+    console.log("User");
+    //if already exists in database
+
+    profile.findByUserID(newProfile.user_id, (err, user) => {
+        if (user) {
+            return res.json({
+                success: true,
+                alreadyPresent: true,
+                msg: "User already exists in database"
+            })
+        } else { //generate new profile in database
+            profile.saveProfile(newProfile, (err, user) => {
+                if (err) {
+                    return res.json({
+                        success: false,
+                        alreadyPresent: false,
+                        msg: "Not able to initialize Profile"
+                    })
+                } else {
+                    return res.json({
+                        success: true,
+                        alreadyPresent: false,
+                        msg: "Profile Initialized"
+                    })
+                }
+            })
+        }
     })
 });
 

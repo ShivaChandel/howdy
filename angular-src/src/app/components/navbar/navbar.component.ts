@@ -19,7 +19,7 @@ export class NavbarComponent implements OnInit {
   }
   onLogout(){
     this._authService.logOut();
-    this._flahMessage.show('Now You are Logged Out',{cssClass:'alert-success',timeout:3000});
+    this._flahMessage.show('Now You are Logged Out',{cssClass:'alert-info',timeout:3000});
     this._router.navigate(['home']);
   }
 }
