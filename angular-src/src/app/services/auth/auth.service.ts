@@ -75,4 +75,14 @@ export class AuthService {
     return this.http.post('http://localhost:8080/users/makeProfile',user,{headers:headers})
             .pipe(catchError(this.errorHandler)) 
   }
+
+  editProfile(user){
+    let headers = new HttpHeaders();
+    
+    headers=headers.append('content-type','application/json');
+    console.log("Updating Profile");
+    console.log(user);
+    return this.http.post('http://localhost:8080/profile/edit_Profile',user,{headers:headers})
+            .pipe(catchError(this.errorHandler))
+  }
 }

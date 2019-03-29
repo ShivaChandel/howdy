@@ -95,6 +95,7 @@ router.post('/makeProfile', (req, res) => {
             return res.json({
                 success: true,
                 alreadyPresent: true,
+                user_id: user.user_id,
                 msg: "User already exists in database"
             })
         } else { //generate new profile in database
@@ -106,9 +107,13 @@ router.post('/makeProfile', (req, res) => {
                         msg: "Not able to initialize Profile"
                     })
                 } else {
+                    console.log('XXX');
+                    console.log(user);
+                    console.log('XXX');
                     return res.json({
                         success: true,
                         alreadyPresent: false,
+                        user_id: user.user_id,
                         msg: "Profile Initialized"
                     })
                 }

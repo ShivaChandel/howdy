@@ -1,50 +1,70 @@
 <div *ngIf="user">
-    <div class="card mb-4">
+    <div class="card border-light mb-3" style="max-width: 20rem;">
         <img class="rounded" style="height: 150px; width: 60%; display: block;margin:auto;margin-top: 10px;" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%22318%22%20height%3D%22180%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20318%20180%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E%23holder_158bd1d28ef%20text%20%7B%20fill%3Argba(255%2C255%2C255%2C.75)%3Bfont-weight%3Anormal%3Bfont-family%3AHelvetica%2C%20monospace%3Bfont-size%3A16pt%20%7D%20%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cg%20id%3D%22holder_158bd1d28ef%22%3E%3Crect%20width%3D%22318%22%20height%3D%22180%22%20fill%3D%22%23777%22%3E%3C%2Frect%3E%3Cg%3E%3Ctext%20x%3D%22129.359375%22%20y%3D%2297.35%22%3EImage%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E"
             alt="Card image">
-        <h3 class="card-header">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{user.name}}</h3>
         <div class="card-body">
-            <h6 class="card-title"><u>@{{user.username}}</u></h6>
+            <h4 class="card-title">{{user.name}}</h4>
+            <p class="card-text font-italic font-weight-bolder"><u>@{{user.username}}</u></p>
+            <blockquote class="blockquote">
+                <p class="mb-0 ">{{user.bio}}</p>
+            </blockquote>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item font-weight-normal">Email : {{user.email}}</li>
+                <li *ngIf="user.gender" class="list-group-item font-weight-normal">Gender : {{user.gender}}</li>
+            </ul>
+            <div class="card-body">
+                <button (click)="editInitial()" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal">Edit</button>
+            </div>
         </div>
-        <div class="card-body">
-            <h6 class="card-title">Bio :</h6>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Email : {{user.email}}</li>
-            <li *ngIf="user.gender" class="list-group-item">Gender : {{user.gender}}</li>
-        </ul>
-        <div class="card-body">
-            <button class="btn btn-primary btn-lg" (click)="editProfile()">Edit</button>
-        </div>
-        <!--<div class="card-body">
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
-        </div>-->
     </div>
 </div>
+
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-    Launch demo modal
-</button>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
-        </button>
+            </button>
             </div>
             <div class="modal-body">
-                ...
+
+                <form #edit="ngForm" (submit)="editProfile(edit.value)">
+                    <fieldset>
+                        <div class="form-group font-weight-bold">
+                            <label for="username">Username : </label>&nbsp;&nbsp;<span class="font-italic">@{{user.username}}</span>
+                        </div>
+                        <div class="form-group font-weight-bold">
+                            <label for="name">Name</label>
+                            <input type="text" name="edit_name" class="form-control font-weight-light" id="name" [(ngModel)]="edit_name" value={{user.name}}>
+                        </div>
+                        <div class="form-group font-weight-bold">
+                            <label for="email">Email </label>
+                            <input type="text" name="edit_email" class="form-control font-weight-light" id="email" [(ngModel)]="edit_email" value={{user.email}}>
+                        </div>
+                        <div class="form-group font-weight-bold">
+                            <label for="bio">Bio !</label>
+                            <input type="text" name="edit_bio" class="form-control font-weight-light" id="bio" [(ngModel)]="edit_bio" value={{user.bio}}>
+                        </div>
+                        <div class="form-group font-weight-bold">
+                            <label for="gender">Gender</label>
+                            <select class="form-control" id="gender" name="edit_gender" [(ngModel)]="edit_gender">
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                    <option>Others</option>
+                        </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary font-weight-light">Submit</button>
+                        <!--data-dismiss="modal"-->
+                    </fieldset>
+                </form>
+
+
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+
         </div>
     </div>
-</div>

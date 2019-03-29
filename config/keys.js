@@ -1,4 +1,4 @@
 module.exports = {
-    database: 'mongodb://localhost:27017/howdyConnect',
+    database: 'mongodb://localhost:27017/practice',
     secret: 'kittyMouse'
 }
